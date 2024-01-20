@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "linux-arm64-openssl-1.0.x"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Forum {
+    uniqueId  String   @id @unique @default(cuid())
+    createdAt DateTime @default(now())
+    sticky    Boolean  @default(false)
+    viewed    Int      @default(0)
+    topic     Topic    @default(GENERAL)
+    tags      Tag[]    @default([COMMON])
+
+    title   String @unique
+    author  String
+    content String
+
+    @@map("forums")
+}
+
+model User {
+    uniqueId  String   @id @unique @default(cuid())
+    createdAt DateTime @default(now())
+    banned    Boolean  @default(false)
+    roles     Role[]   @default([DEFAULT])
+
+    email    String @unique
+    username String @unique
+    password String
+
+    @@map("users")
+}
+
+enum Role {
+    // 管理
+    ADMIN     @map("admin")
+    MODERATOR @map("moderator")
+
+    // 一般
+    MVP     @map("mvp")
+    VIP     @map("vip")
+    DEFAULT @map("default")
+
+    @@map("roles")
+}
+
+enum Topic {
+    ANNOUNCEMENT @map("announcement")
+    GENERAL      @map("general")
+
+    @@map("topics")
+}
+
+enum Tag {
+    COMMON @map("common")
+
+    @@map("tags")
+}
