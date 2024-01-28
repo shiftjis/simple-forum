@@ -154,7 +154,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (session) {
         return {
             redirect: {
-                destination: '/forums',
+                destination: '/threads',
                 permanent: false,
             },
         }

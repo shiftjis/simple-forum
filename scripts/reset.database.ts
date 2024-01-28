@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 export async function main() {
-    await prisma.forum.deleteMany()
+    await prisma.thread.deleteMany()
     await prisma.user.deleteMany()
     console.log("Database has been reset")
 }

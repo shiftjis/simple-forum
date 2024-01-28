@@ -11,7 +11,7 @@ const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] })
 const inter = Inter({ subsets: ["latin"] })
 const pages = [
     {
-        route: "/forums",
+        route: "/threads",
         title: "💥 フォーラム"
     },
     {

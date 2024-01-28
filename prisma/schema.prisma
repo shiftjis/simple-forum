@@ -11,23 +11,24 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Forum {
-    uniqueId  String   @id @unique @default(cuid())
+model Thread {
+    id        Int      @id @default(autoincrement())
+    uniqueId  String   @unique @default(uuid())
     createdAt DateTime @default(now())
     sticky    Boolean  @default(false)
     viewed    Int      @default(0)
-    topic     Topic    @default(GENERAL)
-    tags      Tag[]    @default([COMMON])
+    tags      String[]
 
     title   String @unique
     author  String
     content String
 
-    @@map("forums")
+    @@map("threads")
 }
 
 model User {
-    uniqueId  String   @id @unique @default(cuid())
+    id        Int      @id @default(autoincrement())
+    uniqueId  String   @unique @default(uuid())
     createdAt DateTime @default(now())
     banned    Boolean  @default(false)
     roles     Role[]   @default([DEFAULT])
@@ -37,6 +38,13 @@ model User {
     password String
 
     @@map("users")
+}
+
+model Tag {
+    id   Int    @id @default(autoincrement())
+    name String @unique
+
+    @@map("tags")
 }
 
 enum Role {
@@ -50,17 +58,4 @@ enum Role {
     DEFAULT @map("default")
 
     @@map("roles")
-}
-
-enum Topic {
-    ANNOUNCEMENT @map("announcement")
-    GENERAL      @map("general")
-
-    @@map("topics")
-}
-
-enum Tag {
-    COMMON @map("common")
-
-    @@map("tags")
 }

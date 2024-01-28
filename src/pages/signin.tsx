@@ -1,12 +1,12 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Input, Link, Spacer } from "@nextui-org/react"
 import { getSession, signIn } from "next-auth/react"
+import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
-import { EyeFilledIcon } from "@/components/icons/eye.filled.icon"
 import { EyeSlashFilledIcon } from "@/components/icons/eye.splash.icon"
+import { EyeFilledIcon } from "@/components/icons/eye.filled.icon"
 import { PageBackIcon } from "@/components/icons/page.back.icon"
-import { GetServerSidePropsContext } from "next"
 
 export default function SignIn() {
     const [isVisible, setIsVisible] = useState(false)
@@ -14,16 +14,12 @@ export default function SignIn() {
     const [email, setEmail] = useState("")
     const router = useRouter()
 
-    const shouldDisable = email.trim().length == 0 ||
-        password.trim().length == 0
-
-    const handleSignIn = () => {
-        signIn("credentials", {
-            email: email,
-            password: password,
-            callbackUrl: "/forums",
-        })
-    }
+    const shouldDisable = email.trim().length == 0 || password.trim().length == 0
+    const handleSignIn = () => signIn("credentials", {
+        email: email,
+        password: password,
+        callbackUrl: "/threads",
+    })
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -124,7 +120,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (session) {
         return {
             redirect: {
-                destination: '/forums',
+                destination: '/threads',
                 permanent: false,
             },
         }

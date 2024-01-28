@@ -1,46 +1,46 @@
 import { BreadcrumbItem, Breadcrumbs, Chip, Link, Spacer, Spinner } from "@nextui-org/react"
-import { Inter } from "next/font/google"
 import { GetStaticPropsContext } from "next"
 import { useEffect, useState } from "react"
+import { Inter } from "next/font/google"
 
 import { fetchWithStyle } from "@/common/fetch.with.style"
-import { Forum } from "@/types/forum.type"
+import { Thread } from "@/types/thread.type"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export default function Forum({ slug }: { slug: string }) {
-    const [forum, setForum] = useState<Forum | undefined>(undefined)
+export default function Thread({ slug }: { slug: string }) {
+    const [thread, setThread] = useState<Thread | undefined>(undefined)
 
     useEffect(() => {
-        fetchWithStyle(`/api/forums/${slug}`).then((payload) => {
-            setForum(payload)
+        fetchWithStyle(`/api/threads/${slug}`).then((payload) => {
+            setThread(payload)
         })
     }, [])
 
-    return forum !== undefined ? (
+    return thread !== undefined ? (
         <div className="px-4 py-4 min-h-full bg-slate-50 sm:px-[calc(100%/5.5)] sm:py-12">
             <Breadcrumbs>
-                <BreadcrumbItem href="/forums">フォーラム</BreadcrumbItem>
-                <BreadcrumbItem>{forum.title}</BreadcrumbItem>
+                <BreadcrumbItem href="/threads">スレッド一覧</BreadcrumbItem>
+                <BreadcrumbItem>{thread.title}</BreadcrumbItem>
             </Breadcrumbs>
 
             <Spacer y={2} />
 
             <div className="p-4 border-1">
-                <p className="font-semibold text-3xl">{forum.title}</p>
+                <p className="font-semibold text-3xl">{thread.title}</p>
                 <Spacer y={2} />
 
                 <div className="flex">
-                    <Chip className="mx-[2px]" color="primary" size="sm" radius="sm">
-                        <Link className={`${inter.className} text-background text-sm`} href={`/topics/${forum.topic}`}>
-                            {forum.topic.charAt(0) + forum.topic.slice(1).toLowerCase()}
+                    {/* <Chip className="h-[22px] mx-[2px] rounded-md" color="primary" size="sm">
+                        <Link className={`${inter.className} text-background text-sm`} href={`/topics/${thread.topic}`}>
+                            {thread.topic.charAt(0) + thread.topic.slice(1).toLowerCase()}
                         </Link>
-                    </Chip>
+                    </Chip> */}
 
-                    {forum.tags.length > 0 ? forum.tags.map((tag, index) => {
-                        return <Chip className="mx-[2px]" color="default" size="sm" radius="sm">
-                            <Link className={`${inter.className} text-foreground text-sm`} href={`/tags/${tag}`}>
-                                {tag.charAt(0) + tag.slice(1).toLowerCase()}
+                    {thread.tags.length > 0 ? thread.tags.map((tag, index) => {
+                        return <Chip className="h-[22px] mx-[2px] rounded-md" color="default" size="sm">
+                            <Link className={`${inter.className} text-foreground text-sm`} href={`/tags/${tag.toLowerCase()}`}>
+                                {tag}
                             </Link>
                         </Chip>
                     }) : null}
@@ -48,7 +48,7 @@ export default function Forum({ slug }: { slug: string }) {
 
                 <Spacer y={4} />
 
-                <p>{forum.content}</p>
+                <p>{thread.content}</p>
             </div>
         </div>
     ) : (

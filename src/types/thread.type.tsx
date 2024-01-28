@@ -1,16 +1,20 @@
-export interface Forum {
+export interface Thread {
     uniqueId: string
     createdAt: string
     sticky: boolean
     viewed: number
-    topic: string
-    tags: string[]
-    author: ForumAuthor
+    tags: String[]
+
+    author: Author
     title: string
     content: string
 }
 
-export interface ForumAuthor {
+export interface Author {
     uniqueId: string
     username: string
+}
+
+export interface Tag {
+    name: string
 }

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, Tag } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
@@ -8,10 +8,24 @@ export async function main() {
         return
     }
 
-    await prisma.forum.create({
+    await prisma.tag.create({
         data: {
-            topic: "ANNOUNCEMENT",
+            name: "Announcement"
+        }
+    })
+
+    await prisma.tag.create({
+        data: {
+            name: "Test Tag"
+        }
+    })
+
+    await prisma.thread.create({
+        data: {
             sticky: true,
+            tags: [
+                "Announcement"
+            ],
 
             title: "アナウンス",
             author: exampleUser.uniqueId,
@@ -20,8 +34,13 @@ export async function main() {
     })
 
     for (let index = 0; index < 15; index++) {
-        await prisma.forum.create({
+        await prisma.thread.create({
             data: {
+                tags: [
+                    "Test Tag",
+                    "Test Tag"
+                ],
+
                 title: `サンプルフォーラム No.${index}`,
                 author: "clrmcmvev0000zjezcmagk3id",
                 content: "これはサンプルフォーラムです。これはサンプルフォーラムです。\nこれはサンプルフォーラムです。これはサンプルフォーラムです。"

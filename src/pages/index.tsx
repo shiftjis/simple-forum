@@ -20,7 +20,7 @@ export default function Home() {
                         variant="faded"
                         disableAnimation
                         disableRipple
-                        onPress={() => router.push("/forums")}
+                        onPress={() => router.push("/threads")}
                     >
                         フォーラムに行く
                     </Button>

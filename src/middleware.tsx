@@ -11,7 +11,7 @@ export default withAuth({
 
 export const config = {
     matcher: [
-        "/forums/:path*",
+        "/threads/:path*",
         "/users/:path*",
         "/topics/:path*",
         "/tags/:path*",

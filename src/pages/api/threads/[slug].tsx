@@ -10,7 +10,7 @@ export default middleware<NextApiRequest, NextApiResponse>()
     .pipe(withMethods(({ get }) => {
         get().pipe(async (request, response, next, session) => {
             const uniqueId = request.query.slug as string
-            const forum = await prisma.forum.findUnique({ where: { uniqueId: uniqueId } })
-            response.status(200).json(wrapStyle(200, "", forum))
+            const thread = await prisma.thread.findUnique({ where: { uniqueId: uniqueId } })
+            response.status(200).json(wrapStyle(200, "", thread))
         })
     }))

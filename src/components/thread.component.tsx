@@ -1,9 +1,9 @@
 import { Avatar, Card, CardBody, Link, Spacer, Tooltip } from "@nextui-org/react"
 import { useRouter } from "next/router"
 
-import { Forum } from "@/types/forum.type"
+import { Thread } from "@/types/thread.type"
 
-export default function ForumItem({ forum, index }: { forum: Forum, index: number }) {
+export default function ForumItem({ forum, index }: { forum: Thread, index: number }) {
     const router = useRouter()
 
     function getTimeDifference(date: string): string {
@@ -41,7 +41,7 @@ export default function ForumItem({ forum, index }: { forum: Forum, index: numbe
                     <Link
                         className="text-lg font-medium overflow-hidden text-ellipsis"
                         underline="hover"
-                        href={`/forums/${forum.uniqueId}`}
+                        href={`/threads/${forum.uniqueId}`}
                     >
                         {forum.title}
                     </Link>
