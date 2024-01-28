@@ -1,8 +1,8 @@
 import { Spacer } from "@nextui-org/react"
 import { useEffect, useState } from "react"
+import { Thread } from "@prisma/client"
 
 import { fetchWithStyle } from "@/common/fetch.with.style"
-import { Thread } from "@/types/thread.type"
 import ForumItem from "@/components/thread.component"
 
 export default function Threads() {

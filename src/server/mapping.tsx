@@ -1,4 +1,4 @@
-import { Thread, Tag } from "@prisma/client"
+import { Thread, Tag, User } from "@prisma/client"
 import { prisma } from "./database"
 
 export function wrapStyle(status: number, reason: any, body: any) {
@@ -8,6 +8,15 @@ export function wrapStyle(status: number, reason: any, body: any) {
             reason: reason,
         },
         payload: body,
+    }
+}
+
+export async function userToObject(user: User) {
+    return {
+        uniqueId: user.uniqueId,
+        createdAt: user.createdAt,
+        username: user.username,
+        roles: user.roles,
     }
 }
 
