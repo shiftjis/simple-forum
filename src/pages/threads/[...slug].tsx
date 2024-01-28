@@ -1,10 +1,10 @@
 import { BreadcrumbItem, Breadcrumbs, Chip, Link, Spacer, Spinner } from "@nextui-org/react"
 import { GetStaticPropsContext } from "next"
 import { useEffect, useState } from "react"
+import { Thread } from "@prisma/client"
 import { Inter } from "next/font/google"
 
 import { fetchWithStyle } from "@/common/fetch.with.style"
-import { Thread } from "@/types/thread.type"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -52,7 +52,7 @@ export default function Thread({ slug }: { slug: string }) {
             </div>
         </div>
     ) : (
-        <div className="flex items-center justify-center h-[calc(100%-4rem)]">
+        <div className="flex items-center justify-center h-60">
             <Spinner size="lg" />
         </div>
     )
