@@ -15,7 +15,7 @@ export default middleware<NextApiRequest, NextApiResponse>()
                 return
             }
 
-            const objects = tagsToObjects(tags)
+            const objects = await tagsToObjects(tags)
             response.status(200).json(wrapStyle(200, "", objects))
         })
 
